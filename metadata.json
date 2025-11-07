@@ -1,0 +1,5 @@
+{
+  "name": "NFC Event Wallet",
+  "description": "A complete NFC token payment system for events. It includes an admin panel for managing cards, products, and transactions, and a user panel for viewing card balance and history.",
+  "requestFramePermissions": []
+}
