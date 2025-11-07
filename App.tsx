@@ -26,7 +26,7 @@ const App: React.FC = () => {
   const navItems = [
     { id: 'pos', label: 'Point of Sale', icon: <ShoppingCartIcon className="w-5 h-5 mr-2" />, show: isAdmin },
     { id: 'admin', label: 'Admin Panel', icon: <UsersIcon className="w-5 h-5 mr-2" />, show: isAdmin },
-    { id: 'statistics', label: 'Statistics', icon: <ChartBarIcon className="w-5 h-5 mr-2" />, show: isAdmin },
+    { id: 'statistics', label: 'Statistics', icon: <ChartBarIcon className="w-5 h-5 mr-2" />, show: isSuperAdmin },
     { id: 'user', label: 'My Wallet', icon: <CreditCardIcon className="w-5 h-5 mr-2" />, show: isUser || isSuperAdmin },
     { id: 'auth', label: 'Login', icon: <LoginIcon className="w-5 h-5 mr-2" />, show: !currentUser },
   ];
@@ -37,7 +37,9 @@ const App: React.FC = () => {
           switch (activePanel) {
               case 'pos': return <PosPanel />;
               case 'admin': return <AdminPanel />;
-              case 'statistics': return <StatisticsPanel />;
+              case 'statistics':
+                  if (isSuperAdmin) return <StatisticsPanel />;
+                  return <AdminPanel />; // Fallback for regular admin
               case 'user':
                   if (isSuperAdmin) return <UserPanel />;
                   return <AdminPanel />; // Fallback for regular admin

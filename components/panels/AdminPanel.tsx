@@ -100,6 +100,9 @@ const AdminPanel: React.FC = () => {
     }
 
     const handleCardRowClick = (card: CardType) => {
+        if (!currentUser || currentUser.role !== UserRole.SUPER_ADMIN) {
+            return;
+        }
         const owner = users.find(u => u.cardIds.includes(card.id)) || null;
         setSelectedCard(card);
         setCardOwner(owner);
@@ -204,7 +207,7 @@ const AdminPanel: React.FC = () => {
                             </thead>
                             <tbody>
                                 {allCardsData.map(card => (
-                                    <tr key={card.id} className="bg-gray-800 border-b border-gray-700 hover:bg-gray-600 cursor-pointer" onClick={() => handleCardRowClick(card)}>
+                                    <tr key={card.id} className={`bg-gray-800 border-b border-gray-700 ${isSuperAdmin ? 'hover:bg-gray-600 cursor-pointer' : 'cursor-default'}`} onClick={() => handleCardRowClick(card)}>
                                         <td className="px-6 py-4 font-mono">{card.id}</td>
                                         <td className="px-6 py-4 font-semibold">{card.linkedUser}</td>
                                         <td className="px-6 py-4 font-semibold">{card.balance} ◎</td>
